@@ -55,7 +55,7 @@ modulo = st.sidebar.selectbox('Seleccione', options = ['Seleccione', 'Pozo Verti
 if modulo == 'Seleccione':
 
 	st.markdown(""" <p style="text-align:center"> Aplicación desarrollada para ejecutar cálculos en la construcción de pozos vertiles y direccionales en la indusstria Oil & Gas</p> """,unsafe_allow_html=True)
-	col1, col2 = st.columns(2)
+	col1, col2 = st.beta_columns(2)
 
 	with col1:
 		st.markdown(
