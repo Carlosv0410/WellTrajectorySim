@@ -16,12 +16,7 @@ import pozo_vertical
 import pozo_tipo_j
 import pozo_tipo_s
 #-------------------Configuraciones de página------------------------#
-st.set_page_config(
-     page_title="Built Well Type J and S App",
-     page_icon="🛢",
-     layout="wide",
-     initial_sidebar_state="expanded"
- )
+
 #----------------Importación Multimedia------------------------------#
 image1 = Image.open('Diagrama pozo tipo J.png')
 logo = Image.open('Logo.png')
