@@ -30,16 +30,10 @@ html_portada = """
 	"""
 st.markdown(html_portada, unsafe_allow_html=True)
 #------------------------------Logo----------------------------------#
-col1, col2, col3 = st.sidebar.columns(3)
 
-with col1:
-	st.write("")
+st.sidebar.image(logo,width = 100, caption='App Version 2.0')
 
-with col2:
-	st.image(logo,width = 100, caption='App Version 2.0')
 
-with col3:
-	st.write("")
 #--------------------------Gif inicio--------------------------------#
 gif1 = open("Plataforma1.gif", "rb")
 gif2 = open("Plataforma2.gif", "rb")
