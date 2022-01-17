@@ -30,7 +30,7 @@ html_portada = """
 	"""
 st.markdown(html_portada, unsafe_allow_html=True)
 #------------------------------Logo----------------------------------#
-col1, col2, col3 = st.sidebar.columns([1,6,1])
+col1, col2, col3 = st.sidebar.columns(3)
 
 with col1:
 	st.write("")
