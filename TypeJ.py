@@ -16,7 +16,7 @@ import pozo_vertical
 import pozo_tipo_j
 import pozo_tipo_s
 #-------------------Configuraciones de página------------------------#
-
+st.set_page_config(page_title="Well Trajectory App", page_icon=":oil_drum:")
 #----------------Importación Multimedia------------------------------#
 image1 = Image.open('Diagrama pozo tipo J.png')
 logo = Image.open('Logo.png')
@@ -50,7 +50,8 @@ gif2.close()
 #-----------------Selección de Módulos ------------------------------#
 st.sidebar.header('Selección del tipo de pozo')
 
-modulo = st.sidebar.selectbox('Seleccione', options = ['Seleccione', 'Pozo Vertical', 'Pozo tipo J', 'Pozo tipo S'], format_func=lambda x: 'Seleccione' if x == '' else x)
+modulo = st.sidebar.selectbox('Seleccione el tipo de pozo',
+			      options = ['Seleccione', 'Pozo Vertical', 'Pozo tipo J', 'Pozo tipo S'], format_func=lambda x: 'Seleccione' if x == '' else x)
 
 if modulo == 'Seleccione':
 
