@@ -26,7 +26,7 @@ def construccion():
 
     st.sidebar.markdown('Ing. Carlos Carrillo Villavicencio MSc.')
     st.sidebar.markdown('Version App: 3.0')   
-    
+  
     # Crear cuatro columnas para organizar la interfaz
     col1, col2, col3, col4 = st.columns(4)
 
@@ -43,10 +43,9 @@ def construccion():
                 f'Longitud para la sección {i+1} (ft)', 
                 min_value=0, max_value=30000, value=0
             )
-            secciones = secciones.append(
-                {'Sección': f'Sección {i+1}', 'Longitud (ft)': longitud}, 
-                ignore_index=True
-            )
+            # Usamos pd.concat en lugar de append para evitar errores con las versiones recientes de pandas
+            nuevo_dato = pd.DataFrame({'Sección': [f'Sección {i+1}'], 'Longitud (ft)': [longitud]})
+            secciones = pd.concat([secciones, nuevo_dato], ignore_index=True)
 
     # Mostramos el dataframe con las longitudes ingresadas en la segunda columna
     with col2:
