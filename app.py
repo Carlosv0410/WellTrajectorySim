@@ -67,8 +67,9 @@ def load_gif(file_path):
         return base64.b64encode(contents).decode("utf-8")
 
 # Cargamos y codificamos los GIFs animados una sola vez
-g1 = load_gif("Plataforma1.gif")
-g2 = load_gif("Plataforma2.gif")
+g1 = load_gif("Plataforma1.png")
+g2 = load_gif("Plataforma2.png")
+g3 = load_gif("Plataforma3.png")
 
 #-----------------Selección de Módulos ------------------------------#
 # Agregamos un encabezado en el sidebar para la selección del tipo de pozo
@@ -92,21 +93,29 @@ if modulo == 'Seleccione':
     """, unsafe_allow_html=True)
 
     # Creamos dos columnas para mostrar los GIFs lado a lado
-    col1, col2 = st.columns(2)
+    col1, col2 ,col3= st.columns(3)
 
     # Mostramos el primer GIF en la primera columna con alineación centrada
     with col1:
         st.markdown(
-            f'<img style="position: relative; display: inline-block; left: 50%; transform: translate(-50%);" src="data:image/gif;base64,{g1}" alt="gif1" width="400" height="350">',
+            f'<img style="position: relative; display: inline-block; left: 50%; transform: translate(-50%);" src="data:image/gif;base64,{g1}" alt="gif1" width="400" height="250">',
             unsafe_allow_html=True
         )
 
     # Mostramos el segundo GIF en la segunda columna con alineación centrada
     with col2:
         st.markdown(
-            f'<img style="position: relative; display: inline-block; left: 50%; transform: translate(-50%);" src="data:image/gif;base64,{g2}" alt="gif2" width="400" height="350">',
+            f'<img style="position: relative; display: inline-block; left: 50%; transform: translate(-50%);" src="data:image/gif;base64,{g2}" alt="gif2" width="400" height="250">',
             unsafe_allow_html=True
         )
+
+    # Mostramos el tercer GIF en la tercera columna con alineación centrada
+    with col3:
+        st.markdown(
+            f'<img style="position: relative; display: inline-block; left: 50%; transform: translate(-50%);" src="data:image/gif;base64,{g3}" alt="gif3" width="400" height="250">',
+            unsafe_allow_html=True
+        )
+
 
     # Agregar mensaje centrado de crédito al autor con colores adecuados para modo oscuro
     st.markdown("""
