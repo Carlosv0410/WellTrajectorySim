@@ -120,8 +120,7 @@ if modulo == 'Seleccione':
     # Agregar mensaje centrado de crédito al autor con colores adecuados para modo oscuro
     st.markdown("""
         <div style="text-align:center; font-size:18px; color:lightgray; margin-top:20px;">
-            <p><strong>Elaborado por:</strong></p>
-            <p><strong>Carlos Carrillo Villavicencio</strong></p>
+            <p><strong>Elaborado por: Carlos Carrillo Villavicencio</strong></p>
 	    <p>MSc. Tecnologias de la Información</p>
             <p>Ingeniero en Petróleos</p>
             <p>Ingeniero de Transformación Digital</p>
