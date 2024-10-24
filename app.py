@@ -122,7 +122,8 @@ if modulo == 'Seleccione':
         <div style="text-align:center; font-size:18px; color:lightgray; margin-top:20px;">
             <p><strong>Elaborado por:</strong></p>
             <p><strong>Ing. Carlos Carrillo Villavicencio</strong></p>
-            <p>Ingeniero en Petróleos y MSc. Tecnologias de la Información</p>
+	    <p>MSc. Tecnologias de la Información</p>
+            <p>Ingeniero en Petróleos</p>
             <p>Ingeniero de Transformación Digital</p>
             <p>Data Scientist</p>
             <p>Programador Python</p>
