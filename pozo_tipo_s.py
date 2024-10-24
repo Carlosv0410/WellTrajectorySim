@@ -3,19 +3,21 @@ import numpy as np
 import plotly.express as px
 import pandas as pd
 
-# Explicación en markdown sobre la naturaleza simplificada del simulador
-st.markdown(r"""
-# Simulador de Trayectoria de Pozo Tipo S
 
-Si bien la simulación de un pozo tipo S es más que un ejercicio teórico de cálculos y fórmulas, y existen softwares industriales más sofisticados para este propósito, 
-hemos creado un breve simulador en Python que permite ajustar los parámetros principales y obtener una representación gráfica de la trayectoria. 
-Este simulador busca ayudar a visualizar cómo varían las secciones del pozo cuando se modifican las tasas de incremento y disminución de curvatura, 
-así como otros parámetros, pero **no pretende calcular automáticamente todas las variaciones posibles de forma exacta**.
-
-""")
 
 # Definir función principal para construir el pozo tipo S
 def construccion():
+
+    # Explicación en markdown sobre la naturaleza simplificada del simulador
+    st.markdown(r"""
+    # Simulador de Trayectoria de Pozo Tipo S
+    
+    Si bien la simulación de un pozo tipo S es más que un ejercicio teórico de cálculos y fórmulas, y existen softwares industriales más sofisticados para este propósito, 
+    hemos creado un breve simulador en Python que permite ajustar los parámetros principales y obtener una representación gráfica de la trayectoria. 
+    Este simulador busca ayudar a visualizar cómo varían las secciones del pozo cuando se modifican las tasas de incremento y disminución de curvatura, 
+    así como otros parámetros, pero **no pretende calcular automáticamente todas las variaciones posibles de forma exacta**.
+    
+    """)
 
     # Título principal de la app
     st.title('Simulación de la Trayectoria del Pozo Tipo S')
