@@ -33,12 +33,12 @@ import pozo_tipo_j
 import pozo_tipo_s
 
 #-------------------Configuraciones de página------------------------#
-#st.set_page_config(
-#     page_title="Built Well Type J and S App",
-#     page_icon="🛢",
-#     layout="wide",
-#     initial_sidebar_state="expanded"
-# )
+st.set_page_config(
+     page_title="Built Well Type J and S App",
+     page_icon="🛢",
+     layout="wide",
+     initial_sidebar_state="expanded"
+ )
 #----------------Importación Multimedia------------------------------#
 # Cargamos la imagen del diagrama del pozo tipo J desde un archivo PNG
 image1 = Image.open('Diagrama pozo tipo J.png')
@@ -51,7 +51,7 @@ logo = Image.open('Logo.png')
 #------------------Desarrollo de Portada html------------------------#
 html_portada = """
 	<div style="background-image: linear-gradient(60deg, #0a0a0a, #ffc300, #3a3a3a);padding:10px">
-		<h2 style= "color:black; text-align:center; font: bold 25px Poppins, sans-serif  ">Well Trajectory Calculations App - Python </h2>
+		<h2 style= "color:black; text-align:center; font: bold 25px Poppins, sans-serif  ">Well Trajectory Simulator - Python </h2>
 	</div>
 	"""
 st.markdown(html_portada, unsafe_allow_html=True)
