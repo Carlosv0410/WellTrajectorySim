@@ -34,9 +34,9 @@ import pozo_tipo_s
 
 #-------------------Configuraciones de página------------------------#
 st.set_page_config(
-     page_title="Built Well Type J and S App",
+     page_title="Well Trajectory Simulator App",
      page_icon="🛢",
-     layout="wide",
+     #layout="wide",
      initial_sidebar_state="expanded"
  )
 #----------------Importación Multimedia------------------------------#
