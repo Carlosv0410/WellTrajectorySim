@@ -16,7 +16,8 @@
 Bienvenido a **Well Trajectory Simulator**, una herramienta diseñada para ayudar a ingenieros en la industria petrolera a visualizar trayectorias de pozos con precisión. Esta herramienta está centrada en la simulación de trayectorias de pozos verticales, permitiendo a los usuarios ajustar parámetros y visualizar los resultados en gráficos interactivos.
 
 <div align="center">
-    <img src="Plataforma1.gif" alt="Plataforma 1 GIF">
+    <img src="Plataforma1.gif" alt="Plataforma 1 GIF" style="width:100%; margin-right:5%;">
+    <img src="Plataforma2.gif" alt="Plataforma 2 GIF" style="width:100%;">
 </div>
 
 ---
