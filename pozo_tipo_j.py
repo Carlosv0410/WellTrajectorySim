@@ -53,18 +53,17 @@ def calculos_trigonometricos(bur, tvd, kop, desplazamiento_horizontal):
             "angulo_alfa": round(angulo_alfa, 2),
             "inclinacion": round(inclinacion, 2)
         }
-    except ZeroDivisionError:
-        # Manejar caso donde el BUR sea cero (no permitido)
-        st.warning("El Built Up Rate (BUR) no puede ser cero. Por favor, ingrese un valor mayor.")
-        return None
-    except ValueError as ve:
-        # Manejar errores específicos como KOP >= TVD
-        st.warning(str(ve))
-        return None
     except Exception as e:
-        # Manejar cualquier otro error inesperado
-        st.warning(f"Error en los cálculos: {str(e)}")
-        return None
+        # Mostrar advertencia y retornar valores predeterminados
+        st.warning(f"Error en los cálculos: {str(e)}. Mostrando construcción con valores predeterminados.")
+        return {
+            "radio": 1000,
+            "hipotenusa": 1200,
+            "angulo_teta": 45,
+            "angulo_beta": 45,
+            "angulo_alfa": 45,
+            "inclinacion": 45
+        }
 
 def construccion(image1):
     # Título principal de la app
@@ -100,18 +99,33 @@ def construccion(image1):
     # Realizamos cálculos trigonométricos
     resultados_trigonométricos = calculos_trigonometricos(bur, tvd, kop, desplazamiento_horizontal)
 
-    if resultados_trigonométricos:
-        # Mostramos resultados si no hubo errores
-        with st.expander('Cálculos trigonométricos'):
-            st.write(f"Radio: {resultados_trigonométricos['radio']}")
-            st.write(f"Hipotenusa: {resultados_trigonométricos['hipotenusa']}")
-            st.write(f"Ángulo theta: {resultados_trigonométricos['angulo_teta']}")
-            st.write(f"Ángulo beta: {resultados_trigonométricos['angulo_beta']}")
-            st.write(f"Ángulo alfa: {resultados_trigonométricos['angulo_alfa']}")
-            st.write(f"Inclinación: {resultados_trigonométricos['inclinacion']}")
+    # Generamos gráfica básica
+    radio = resultados_trigonométricos['radio']
+    inclinacion = resultados_trigonométricos['inclinacion']
 
-        # Cálculos adicionales y visualización (continuar flujo si no hay errores)
-        # Implementar cálculo del survey y gráfica como en tu código original
+    # Construcción vertical
+    vertical_depth = list(range(-int(kop), 0))
+    df_vertical = pd.DataFrame({
+        'Eje x': [0] * len(vertical_depth),
+        'Eje y': vertical_depth,
+        'Eje z': [0] * len(vertical_depth),
+        'Sección': ['Vertical'] * len(vertical_depth)
+    })
+
+    # Curva
+    df_curva = pd.DataFrame({
+        'Eje x': [math.sin(math.radians(angle)) * radio for angle in range(0, int(inclinacion))],
+        'Eje y': [math.cos(math.radians(angle)) * radio for angle in range(0, int(inclinacion))],
+        'Eje z': [0] * int(inclinacion),
+        'Sección': ['Curva'] * int(inclinacion)
+    })
+
+    # Combinar datos
+    df_combinacion = pd.concat([df_vertical, df_curva])
+
+    # Gráfico 3D
+    fig = px.line_3d(df_combinacion, x='Eje z', y='Eje x', z='Eje y', color='Sección')
+    st.write(fig)
 
 # Ejecuta la construcción del pozo tipo J
 construccion(None)
