@@ -7,15 +7,39 @@ import plotly.express as px
 def calculos_trigonometricos(bur, tvd, kop, desplazamiento_horizontal):
     """
     Realiza los cálculos trigonométricos necesarios para la construcción
-    del pozo tipo J y devuelve los resultados.
+    del pozo tipo J y maneja los dos escenarios posibles.
     """
+    # Radio de curvatura
     radio = (18000 / (3.141593 * bur))
-    hipotenusa = (((desplazamiento_horizontal - radio) ** 2) + ((tvd - kop) ** 2)) ** 0.5
-    angulo_teta = math.degrees(math.atan((desplazamiento_horizontal - radio) / (tvd - kop)))
-    angulo_beta = math.degrees(math.acos(radio / hipotenusa))
+
+    # Determinar la hipotenusa considerando los dos escenarios
+    if desplazamiento_horizontal > radio:
+        desplazamiento_ajustado = desplazamiento_horizontal - radio
+    else:
+        desplazamiento_ajustado = radio - desplazamiento_horizontal
+
+    # Línea de profundidad vertical desde el KOP al TVD
+    profundidad_vertical = tvd - kop
+
+    # Calcular el ángulo theta (triángulo formado por desplazamiento y profundidad)
+    angulo_teta = math.degrees(math.atan(desplazamiento_ajustado / profundidad_vertical))
+
+    # Longitud de la hipotenusa
+    hipotenusa = (desplazamiento_ajustado**2 + profundidad_vertical**2) ** 0.5
+
+    # Validación del rango para el coseno en math.acos
+    cos_value = radio / hipotenusa
+    cos_value = max(-1, min(1, cos_value))  # Asegurar que esté entre -1 y 1
+
+    # Calcular el ángulo beta
+    angulo_beta = math.degrees(math.acos(cos_value))
+
+    # Calcular el ángulo alfa
     angulo_alfa = 90 - (angulo_beta - angulo_teta)
+
+    # Máxima inclinación
     inclinacion = angulo_alfa
-    
+
     return {
         "radio": round(radio, 2),
         "hipotenusa": round(hipotenusa, 2),
