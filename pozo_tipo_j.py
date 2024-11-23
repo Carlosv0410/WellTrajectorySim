@@ -9,70 +9,64 @@ def calculos_trigonometricos(bur, tvd, kop, desplazamiento_horizontal):
     Realiza los cálculos trigonométricos necesarios para la construcción de un pozo tipo J, 
     considerando si el desplazamiento horizontal es mayor o menor que el radio de curvatura.
 
+    Incluye manejo de errores cuando los parámetros no son físicamente consistentes.
+
     Parámetros:
     ----------
     bur : float
         Build-Up Rate (BUR) en grados por cada 100 ft.
     tvd : float
-        True Vertical Depth (TVD) en pies. Es la profundidad vertical del pozo.
+        True Vertical Depth (TVD) en pies.
     kop : float
-        Kick-Off Point (KOP) en pies. Es la profundidad donde comienza la curvatura del pozo.
+        Kick-Off Point (KOP) en pies.
     desplazamiento_horizontal : float
         Desplazamiento horizontal del pozo en pies.
-
-    Cálculos:
-    ---------
-    - El radio de curvatura se calcula como `(180 * 100) / (π * bur)`, dado que BUR es en grados cada 100 ft.
-    - Si el desplazamiento horizontal es mayor que el radio:
-        - Se calcula la inclinación como `90 + angulo_teta - angulo_beta`.
-    - Si el desplazamiento horizontal es menor que el radio:
-        - Se calcula la inclinación como `90 - angulo_teta - angulo_beta`.
-    - Los ángulos intermedios (teta, beta y alfa) se calculan usando funciones trigonométricas.
 
     Retorna:
     --------
     dict:
-        Un diccionario con los siguientes valores:
-        - "radio": float, radio de curvatura en pies.
-        - "hipotenusa": float, distancia entre el KOP y el punto objetivo en pies.
-        - "angulo_teta": float, ángulo formado por el desplazamiento horizontal y la profundidad vertical (grados).
-        - "angulo_beta": float, ángulo en el triángulo asociado al radio y la hipotenusa (grados).
-        - "angulo_alfa": float, ángulo de inclinación calculado (grados).
-        - "inclinacion": float, ángulo de inclinación final del pozo (grados).
-
-    Notas:
-    ------
-    Todas las medidas están en unidades de campo (pies), excepto BUR, que se mide en grados por cada 100 ft.
-
+        Un diccionario con los resultados calculados (o None si ocurre un error).
     """
     # Cálculo del radio de curvatura
     radio = (180 * 100) / (3.141593 * bur)
 
     # Determinar si desplazamiento horizontal es mayor o menor que el radio
-    if desplazamiento_horizontal > radio:
-        # Caso Desplazamiento Horizontal > Radio
-        hipotenusa = (((desplazamiento_horizontal - radio) ** 2) + ((tvd - kop) ** 2)) ** 0.5
-        angulo_teta = math.degrees(math.atan((desplazamiento_horizontal - radio) / (tvd - kop)))
-        angulo_beta = math.degrees(math.acos(radio / hipotenusa))
-        angulo_alfa = 90 + angulo_teta - angulo_beta
-    else:
-        # Caso Desplazamiento Horizontal < Radio
-        hipotenusa = (((radio - desplazamiento_horizontal) ** 2) + ((tvd - kop) ** 2)) ** 0.5
-        angulo_teta = math.degrees(math.atan((radio - desplazamiento_horizontal) / (tvd - kop)))
-        angulo_beta = math.degrees(math.acos(radio / hipotenusa))
-        angulo_alfa = 90 - angulo_teta - angulo_beta
+    try:
+        if desplazamiento_horizontal > radio:
+            # Caso Desplazamiento Horizontal > Radio
+            hipotenusa = (((desplazamiento_horizontal - radio) ** 2) + ((tvd - kop) ** 2)) ** 0.5
+            # Validación previa a acos
+            if radio / hipotenusa > 1 or radio / hipotenusa < -1:
+                st.error("Parámetros no válidos. Por favor, incremente el BUR o ajuste los valores ingresados.")
+                return None
+            angulo_teta = math.degrees(math.atan((desplazamiento_horizontal - radio) / (tvd - kop)))
+            angulo_beta = math.degrees(math.acos(radio / hipotenusa))
+            angulo_alfa = 90 + angulo_teta - angulo_beta
+        else:
+            # Caso Desplazamiento Horizontal < Radio
+            hipotenusa = (((radio - desplazamiento_horizontal) ** 2) + ((tvd - kop) ** 2)) ** 0.5
+            # Validación previa a acos
+            if radio / hipotenusa > 1 or radio / hipotenusa < -1:
+                st.error("Parámetros no válidos. Por favor, incremente el BUR o ajuste los valores ingresados.")
+                return None
+            angulo_teta = math.degrees(math.atan((radio - desplazamiento_horizontal) / (tvd - kop)))
+            angulo_beta = math.degrees(math.acos(radio / hipotenusa))
+            angulo_alfa = 90 - angulo_teta - angulo_beta
 
-    # Asignar inclinación basada en el cálculo de angulo alfa
-    inclinacion = angulo_alfa
+        # Asignar inclinación basada en el cálculo de angulo alfa
+        inclinacion = angulo_alfa
 
-    return {
-        "radio": round(radio, 2),
-        "hipotenusa": round(hipotenusa, 2),
-        "angulo_teta": round(angulo_teta, 2),
-        "angulo_beta": round(angulo_beta, 2),
-        "angulo_alfa": round(angulo_alfa, 2),
-        "inclinacion": round(inclinacion, 2)
-    }
+        return {
+            "radio": round(radio, 2),
+            "hipotenusa": round(hipotenusa, 2),
+            "angulo_teta": round(angulo_teta, 2),
+            "angulo_beta": round(angulo_beta, 2),
+            "angulo_alfa": round(angulo_alfa, 2),
+            "inclinacion": round(inclinacion, 2)
+        }
+    except Exception as e:
+        st.error(f"Error en los cálculos: {e}")
+        return None
 
 def calculos_eob(inclinacion, radio, kop, tvd, desplazamiento_horizontal):
     """
@@ -281,5 +275,3 @@ def construccion(image1):
     with col2:
         with st.expander('Survey Completo'):
             st.write(df_combinacion)
-
-
