@@ -51,6 +51,11 @@ Puedes instalar todos los requisitos usando el archivo `requirements.txt`:
 ```bash
 pip install -r requirements.txt
 ```
+---
+
+## 📷 Captura de pantalla
+
+![Captura](Captura.jpg)
 
 ---
 
