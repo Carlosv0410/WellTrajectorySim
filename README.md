@@ -55,7 +55,7 @@ pip install -r requirements.txt
 
 ## 📷 Captura de pantalla
 
-![Captura](Captura.jpg)
+![Captura](Captura.jpeg)
 
 ---
 
